@@ -5,6 +5,7 @@ projectData = {};
 const express = require('express')
 const bodyParser = require('body-parser')
 const cors = require('cors')
+const appFunction = require('./website/app')
 
 const app = express()
 // Start up an instance of app
@@ -19,6 +20,50 @@ app.use(cors())
 
 // Initialize the main project folder
 app.use(express.static('website'));
+
+// end app initialization
+
+
+// begin server code
+app.get("/data", (req, res) => {
+	res.send(projectData)
+});
+
+
+app.get("/datas", (req, res) => {
+    appFunction.fetchData()
+    // temperature:"30",
+    // date:"2023-02--8",
+    // user_response:"resp"
+    projectData.temperature = "30 deg";
+    projectData.date="2023-02-8";
+    projectData.user_response="good weather";
+	res.send(projectData)
+});
+
+
+
+// app.get("/api/v1/docs", (req, res) => {
+// 	const fileDirectory = path.resolve(__dirname, ".", "public/");
+
+// 	res.sendFile("docs/api.yml", { root: fileDirectory }, (err) => {
+// 		res.end();
+
+// 		if (err) throw err;
+// 	});
+// });
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 // Setup Server
